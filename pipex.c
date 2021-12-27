@@ -21,9 +21,12 @@ int	main(int argc, char **argv, char **env)
 	//pid_t	pipe;
 	char	*t;
 
-	in_fd = argc;
-	t = env[0];
-	if (!access(argv[1], F_OK))
-		write(1, "xer", 3);
+	if (argc > 5)
+	{
+		in_fd = argc;
+		t = env[0];
+		if (!access(argv[1], F_OK))
+			write(1, "xer", 3);
+	}
 	return (0);
 }
