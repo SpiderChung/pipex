@@ -12,7 +12,7 @@
 
 NAME = pipex
 
-HEADER = headers/fractol.h	
+HEADER = headers/pipex.h	
 
 SRC = pipex.c pipex_utils.c
 
@@ -34,8 +34,8 @@ REMOVE = rm -f
 all: $(NAME) $(HEADER)
 
 $(NAME): $(OBJ)
-	@$(CC) -I $(HEADER) $(OBJ) -L../libft -lft -o $(NAME)
-	@echo "[INFO] Pipex [$(NAME)] created"
+	@$(CC) -I $(HEADER) $(OBJ) -Llibft -lft -o $(NAME)
+	@echo "[INFO] file [$(NAME)] created"
 
 clean:
 	@$(REMOVE) $(OBJ)
