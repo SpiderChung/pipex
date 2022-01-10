@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schung <schung@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/01 15:56:45 by schung            #+#    #+#             */
-/*   Updated: 2022/01/10 20:31:51 by schung           ###   ########.fr       */
+/*   Created: 2021/10/12 19:43:11 by schung            #+#    #+#             */
+/*   Updated: 2021/12/01 19:22:11 by schung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../headers/libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <stdio.h>
-# include <errno.h>
-# include <string.h>
-# include <stdarg.h>
+char	*ft_strdup(const char *s1)
+{
+	char	*a;
+	int		len;
+	int		i;
 
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
-
-/*________pipex.c__________*/
-
-/*________pipex_utils.c__________*/
-void	pipex_errors();
-char	*ft_strnjoin(int num, ...);
-
-#endif
+	len = ft_strlen(s1);
+	i = 0;
+	a = (char *)malloc((len + 1) * sizeof(char));
+	if (!a)
+		return (NULL);
+	while (i < len)
+	{
+		a[i] = s1[i];
+		i++;
+	}
+	a[len] = '\0';
+	return (a);
+}

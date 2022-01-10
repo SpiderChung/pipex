@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schung <schung@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/01 15:56:45 by schung            #+#    #+#             */
-/*   Updated: 2022/01/10 20:31:51 by schung           ###   ########.fr       */
+/*   Created: 2021/10/12 19:30:22 by schung            #+#    #+#             */
+/*   Updated: 2021/12/01 19:30:28 by schung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../headers/libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <stdio.h>
-# include <errno.h>
-# include <string.h>
-# include <stdarg.h>
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	size_t	i;
+	char	*a;
 
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
-
-/*________pipex.c__________*/
-
-/*________pipex_utils.c__________*/
-void	pipex_errors();
-char	*ft_strnjoin(int num, ...);
-
-#endif
+	i = 0;
+	a = (char *)s;
+	while (i < n)
+	{
+		if (a[i] == (char)c)
+			return ((char *)s + i);
+		i++;
+	}
+	return (0);
+}

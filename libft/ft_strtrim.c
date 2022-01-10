@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schung <schung@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/01 15:56:45 by schung            #+#    #+#             */
-/*   Updated: 2022/01/10 20:31:51 by schung           ###   ########.fr       */
+/*   Created: 2021/10/13 10:28:18 by schung            #+#    #+#             */
+/*   Updated: 2021/12/01 19:20:14 by schung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../headers/libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <stdio.h>
-# include <errno.h>
-# include <string.h>
-# include <stdarg.h>
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	size_t		len;
+	char		*a;
 
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
-
-/*________pipex.c__________*/
-
-/*________pipex_utils.c__________*/
-void	pipex_errors();
-char	*ft_strnjoin(int num, ...);
-
-#endif
+	if (!s1 || !set)
+		return (NULL);
+	while (*s1 && ft_strchr(set, *s1))
+		s1++;
+	len = ft_strlen(s1);
+	while (len && ft_strchr(set, s1[len]))
+		len--;
+	a = ft_substr((char *)s1, 0, len + 1);
+	return (a);
+}

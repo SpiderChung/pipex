@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strequal.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schung <schung@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/01 15:56:45 by schung            #+#    #+#             */
-/*   Updated: 2022/01/10 20:31:51 by schung           ###   ########.fr       */
+/*   Created: 2021/12/01 19:21:46 by schung            #+#    #+#             */
+/*   Updated: 2021/12/26 12:56:04 by schung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../headers/libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <stdio.h>
-# include <errno.h>
-# include <string.h>
-# include <stdarg.h>
+int	ft_strequal(char const *s1, char const *s2)
+{
+	int	i;
 
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
-
-/*________pipex.c__________*/
-
-/*________pipex_utils.c__________*/
-void	pipex_errors();
-char	*ft_strnjoin(int num, ...);
-
-#endif
+	i = 0;
+	if (s1 && s2)
+	{
+		if (ft_strcmp(s1, s2) == 0)
+			return (1);
+		return (0);
+	}
+	return (0);
+}

@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schung <schung@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/01 15:56:45 by schung            #+#    #+#             */
-/*   Updated: 2022/01/10 20:31:51 by schung           ###   ########.fr       */
+/*   Created: 2021/10/08 15:16:04 by schung            #+#    #+#             */
+/*   Updated: 2021/12/01 19:20:55 by schung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../headers/libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <stdio.h>
-# include <errno.h>
-# include <string.h>
-# include <stdarg.h>
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	char			*dest;
+	unsigned int	i;
+	unsigned int	len;
 
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
-
-/*________pipex.c__________*/
-
-/*________pipex_utils.c__________*/
-void	pipex_errors();
-char	*ft_strnjoin(int num, ...);
-
-#endif
+	i = 0;
+	if (!s || !f)
+		return (NULL);
+	len = ft_strlen(s);
+	dest = (char *)malloc(sizeof(char) * (len + 1));
+	if (!dest)
+		return (NULL);
+	while (i < len)
+	{
+		dest[i] = f(i, s[i]);
+		i++;
+	}
+	dest[len] = '\0';
+	return (dest);
+}

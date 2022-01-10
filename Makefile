@@ -6,11 +6,13 @@
 #    By: schung <schung@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/01 15:57:27 by schung            #+#    #+#              #
-#    Updated: 2021/12/26 20:22:25 by schung           ###   ########.fr        #
+#    Updated: 2022/01/10 20:30:23 by schung           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
+
+FOREIGN_TARGETS = libft/libft.a
 
 HEADER = headers/pipex.h	
 
@@ -33,18 +35,22 @@ REMOVE = rm -f
 
 all: $(NAME) $(HEADER)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(FOREIGN_TARGETS)
 	@$(CC) -I $(HEADER) $(OBJ) -Llibft -lft -o $(NAME)
-	@echo "[INFO] file [$(NAME)] created"
+	@echo "[INFO] [$(NAME)] created"
+
+$(FOREIGN_TARGETS):
+	@make -C $(dir $@) $(notdir $@)
 
 clean:
 	@$(REMOVE) $(OBJ)
-	@echo "[INFO] Removed objects"
+	@echo "[INFO] Removed pipex objects"
 
 fclean: clean
 	@$(REMOVE) $(NAME)
+	@make fclean -C libft
 	@echo "[INFO] Pipex and objects removed "
 
 re: fclean all
 
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re $(FOREIGN_TARGETS)
