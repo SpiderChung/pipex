@@ -25,6 +25,18 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
+# define FILE_READ 0
+# define FILE_WRITE 1
+
+
+typedef struct s_pipex
+{
+	int	    in_fd;
+	int 	out_fd;
+    int     pipe_fd[2];
+    t_pid   pid;
+}	t_pipex;
+
 
 /*________pipex.c__________*/
 
