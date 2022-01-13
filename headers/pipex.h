@@ -34,7 +34,11 @@ typedef struct s_pipex
 	int	    in_fd;
 	int 	out_fd;
     int     pipe_fd[2];
-    t_pid   pid;
+    pid_t   pid;
+    char    *paths;
+    char    **cmd_paths;
+    char    **cmd_args;
+    char    *cmd;
 }	t_pipex;
 
 
@@ -43,5 +47,7 @@ typedef struct s_pipex
 /*________pipex_utils.c__________*/
 void	pipex_errors();
 char	*ft_strnjoin(int num, ...);
+void	pipex_free(t_pipex *pipex);
+char	*get_cmd(char **paths, char *cmd);
 
 #endif

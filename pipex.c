@@ -13,11 +13,11 @@
 #include "headers/pipex.h"
 #include "headers/libft.h"
 
-char	*find_path(char **envp)
+char	*find_path(char **env)
 {
-	while (ft_strncmp("PATH", *envp, 4))
-		envp++;
-	return (*envp + 5);
+	while (ft_strncmp("PATH", *env, 4))
+		env++;
+	return (*env + 5);
 }
 
 int	open_file(char *s, int rw)
@@ -41,12 +41,23 @@ int	open_file(char *s, int rw)
 		}
 		return (open(s, O_RDONLY));
 	}
-	return	(open(s, O_CREAT | O_WRONLY | O_TRUNC, 0777))
+	return	(open(s, O_CREAT | O_WRONLY | O_TRUNC, 0777));
 }
 
-void	exe_cmd(char **argv, char **env, pid_t	pid)
+void	ft_exe_cmd(char **argv, char **env, t_pipex *pipex)
 {
-
+	if (pipex->pid)
+	{
+		pipex->cmd_args = ft_split(argv[3], ' ');
+		pipex->cmd = get_cmd(pipex->cmd_paths, pipex->cmd_args[0]);
+		execve(pipex->cmd, pipex->cmd_args, env);
+	}
+	else
+	{
+		pipex->cmd_args = ft_split(argv[2], ' ');
+		pipex->cmd = get_cmd(pipex->cmd_paths, pipex->cmd_args[0]);
+		execve(pipex->cmd, pipex->cmd_args, env);	
+	}
 }
 
 void	tube(t_pipex *pipex)
@@ -61,8 +72,8 @@ void	tube(t_pipex *pipex)
 	}
 	else
 	{
-		close(pipex->pipe_fd[1]);
-		dup2(pipex->pipe_fd[0], STDIN);
+		close(pipex->pipe_fd[0]);
+		dup2(pipex->pipe_fd[1], STDOUT);
 	}
 }
 
@@ -76,27 +87,20 @@ int	main(int argc, char **argv, char **env)
 		pipex.out_fd = open_file(argv[4], FILE_WRITE);
 		dup2(pipex.in_fd, STDIN);
 		dup2(pipex.out_fd, STDOUT);
+		pipex.paths = find_path(env);
+		pipex.cmd_paths = ft_split(pipex.paths, ':');
 		tube(&pipex);
-		exe_cmd(argv, env, pipex.pid);
-		
-		//perror("file");
-		printf("wqeqwe %s\n", env[5]);
-		/*if (rd < 0)
-		{
-			err = ft_strjoin("pipex: ", argv[1]);
-			errno = 13;
-			perror(err);
-			free(err);
-			i = 0;
-			while (env[i])
-			{
-				printf("wqeqwe %s\n", env[i]);
-				i++;
-			}
-		}
-		*/
+		ft_putstr_fd("asdasda", STDERR);
+		ft_exe_cmd(argv, env, &pipex);
+		ft_putstr_fd("soso", STDERR);
+		//pipex_free(&pipex);
 	}
 	else 
 		ft_putstr_fd("pipex: Invalid number of arguments.\n", STDERR);
+
+	while(1)
+	{
+
+	}
 	return (0);
 }

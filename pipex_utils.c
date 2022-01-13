@@ -18,6 +18,24 @@ void	pipex_errors()
 
 }
 
+char	*get_cmd(char **paths, char *cmd)
+{
+	char	*tmp;
+	char	*command;
+
+	while (*paths)
+	{
+		tmp = ft_strjoin(*paths, "/");
+		command = ft_strjoin(tmp, cmd);
+		free(tmp);
+		if (access(command, F_OK) == 0)
+			return (command);
+		free(command);
+		paths++;
+	}
+	return (NULL);
+}
+
 char	*ft_strnjoin(int num, ...)
 {
 	char			*s1;
@@ -43,4 +61,27 @@ char	*ft_strnjoin(int num, ...)
 	}
 	va_end(list);
 	return (sum);
+}
+
+void	pipex_free(t_pipex *pipex)
+{
+	int	i;
+
+	i = 0;
+	close(pipex->in_fd);
+	close(pipex->out_fd);
+	while (pipex->cmd_paths[i])
+	{
+		free(pipex->cmd_paths[i]);
+		i++;
+	}
+	free(pipex->cmd_paths);
+    i = 0;
+    while (pipex->cmd_args[i])
+	{
+		free(pipex->cmd_args[i]);
+		i++;
+	}
+	free(pipex->cmd_args);
+	free(pipex->cmd);
 }
