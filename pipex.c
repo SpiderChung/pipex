@@ -6,7 +6,7 @@
 /*   By: schung <schung@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:28:37 by schung            #+#    #+#             */
-/*   Updated: 2022/01/15 14:47:30 by schung           ###   ########.fr       */
+/*   Updated: 2022/01/15 18:54:22 by schung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,27 @@ char	*find_path(char **env)
 
 int	open_file(char *s, int rw)
 {
-	char	*str;
-
 	if (rw == FILE_READ)
 	{
 		if (access(s, F_OK | R_OK))
 		{
-			str = ft_strnjoin(5, "pipex: ", strerror(errno), ": ", s, "\n");
-			ft_putstr_fd(str, STDERR);
-			free(str);
+			pipex_error_message(s, errno);
 			exit(1);
 		}
 		return (open(s, O_RDONLY));
 	}
-	return (open(s, O_CREAT | O_WRONLY | O_TRUNC, 0777));
+	else
+	{
+		if (!(access(s, F_OK)))
+		{
+			if (access(s, W_OK))
+			{
+				pipex_error_message(s, errno);
+				exit(1);
+			}
+		}
+		return (open(s, O_CREAT | O_WRONLY | O_TRUNC, 0777));
+	}
 }
 
 void	ft_exe_cmd(char **argv, char **env, t_pipex *pipex)

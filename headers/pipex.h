@@ -6,7 +6,7 @@
 /*   By: schung <schung@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 15:56:45 by schung            #+#    #+#             */
-/*   Updated: 2022/01/15 13:37:30 by schung           ###   ########.fr       */
+/*   Updated: 2022/01/15 18:45:56 by schung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,17 @@ typedef struct s_pipex
 	char	*cmd;
 }	t_pipex;
 
+/*_____________pipex.c_____________*/
+char	*find_path(char **env);
+int		open_file(char *s, int rw);
+void	ft_exe_cmd(char **argv, char **env, t_pipex *pipex);
+void	tube(t_pipex *pipex);
+
+/*_____________pipex_utils.c_____________*/
 void	pipex_errors(char *s, t_pipex *pipex);
 char	*ft_strnjoin(int num, ...);
 void	pipex_free(t_pipex *pipex);
 char	*get_cmd(char **paths, char *cmd);
+void	pipex_error_message(char *s, int err);
 
 #endif

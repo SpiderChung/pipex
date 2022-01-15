@@ -6,7 +6,7 @@
 /*   By: schung <schung@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:28:37 by schung            #+#    #+#             */
-/*   Updated: 2022/01/15 18:15:09 by schung           ###   ########.fr       */
+/*   Updated: 2022/01/15 18:40:50 by schung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,14 @@ int	open_file(char *s, int rw)
 		return (open(s, O_RDONLY));
 	}
 	else
-		return (open(s, O_CREAT | O_WRONLY | O_TRUNC, 0777));
+	{
+		if (access(s, W_OK))
+		{
+			pipex_error_message(s, errno);
+			exit(1);
+		}
+		return (open(s, O_CREAT | O_WRONLY | O_TRUNC, 777));
+	}
 }
 
 void	ft_exe_cmd(char **argv, char **env, t_pipex *pipex)

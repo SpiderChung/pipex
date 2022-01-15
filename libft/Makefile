@@ -6,7 +6,7 @@
 #    By: schung <schung@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/12 17:50:47 by schung            #+#    #+#              #
-#    Updated: 2022/01/15 13:51:56 by schung           ###   ########.fr        #
+#    Updated: 2022/01/15 18:58:16 by schung           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,11 +45,11 @@ $(NAME): $(patsubst %,$(OBJ_PATH)%,$(OBJ))
 	@echo "$(GREEN)[INFO] Library [$(NAME)] created"
 
 clean:
-	@$(REMOVE) $(OBJ) $(OBJ_BONUS)
+	@$(REMOVE) $(OBJ)
 	@echo "[INFO] Removed libft objects"
 
 fclean: clean
-	@$(REMOVE) $(NAME)
+	@$(REMOVE) $(NAME) $(patsubst %,$(OBJ_PATH)%,$(OBJ))
 	@echo "[INFO] Libft and objects removed "
 
 re: fclean all

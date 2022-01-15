@@ -6,12 +6,21 @@
 /*   By: schung <schung@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:39:01 by schung            #+#    #+#             */
-/*   Updated: 2022/01/15 12:22:56 by schung           ###   ########.fr       */
+/*   Updated: 2022/01/15 18:46:07 by schung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "headers/pipex.h"
 #include "headers/libft.h"
+
+void	pipex_error_message(char *s, int err)
+{
+	char	*str;
+
+	str = ft_strnjoin(5, "pipex: ", strerror(err), ": ", s, "\n");
+	ft_putstr_fd(str, STDERR);
+	free(str);
+}
 
 void	pipex_errors(char *s, t_pipex *pipex)
 {
