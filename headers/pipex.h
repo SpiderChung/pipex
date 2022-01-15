@@ -27,6 +27,7 @@
 # define STDERR 2
 # define FILE_READ 0
 # define FILE_WRITE 1
+# define ERR_CMD "Command not found\n"
 
 
 typedef struct s_pipex

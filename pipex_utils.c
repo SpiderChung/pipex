@@ -13,9 +13,11 @@
 #include "headers/pipex.h"
 #include "headers/libft.h"
 
-void	pipex_errors()
+void	pipex_errors(char *s, t_pipex *pipex)
 {
-
+    ft_putstr_fd("pipex: ", STDERR);
+    ft_putstr_fd(s, STDERR);
+    ft_putstr_fd(pipex->cmd, STDERR);
 }
 
 char	*get_cmd(char **paths, char *cmd)

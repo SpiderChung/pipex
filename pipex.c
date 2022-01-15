@@ -50,12 +50,25 @@ void	ft_exe_cmd(char **argv, char **env, t_pipex *pipex)
 	{
 		pipex->cmd_args = ft_split(argv[3], ' ');
 		pipex->cmd = get_cmd(pipex->cmd_paths, pipex->cmd_args[0]);
+		if (!pipex->cmd)
+		{
+			pipex_errors(ERR_CMD, &pipex);
+			pipex_free(pipex);
+			exit(1);
+		}
 		execve(pipex->cmd, pipex->cmd_args, env);
 	}
 	else
 	{
 		pipex->cmd_args = ft_split(argv[2], ' ');
 		pipex->cmd = get_cmd(pipex->cmd_paths, pipex->cmd_args[0]);
+		ft_putstr_fd(pipex->cmd, STDERR);
+		if (!pipex->cmd)
+		{
+			pipex_errors(ERR_CMD, &pipex);
+			pipex_free(pipex);
+			exit(1);
+		}
 		execve(pipex->cmd, pipex->cmd_args, env);	
 	}
 }
@@ -90,17 +103,10 @@ int	main(int argc, char **argv, char **env)
 		pipex.paths = find_path(env);
 		pipex.cmd_paths = ft_split(pipex.paths, ':');
 		tube(&pipex);
-		ft_putstr_fd("asdasda", STDERR);
 		ft_exe_cmd(argv, env, &pipex);
-		ft_putstr_fd("soso", STDERR);
-		//pipex_free(&pipex);
+		pipex_free(&pipex);
 	}
 	else 
 		ft_putstr_fd("pipex: Invalid number of arguments.\n", STDERR);
-
-	while(1)
-	{
-
-	}
 	return (0);
 }

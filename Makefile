@@ -12,8 +12,6 @@
 
 NAME = pipex
 
-FOREIGN_TARGETS = libft/libft.a
-
 HEADER = headers/pipex.h	
 
 SRC = pipex.c pipex_utils.c
@@ -33,14 +31,12 @@ REMOVE = rm -f
 %.o: %.c $(HEADER)
 	$(CC) -I $(HEADER) -c $< -o $@
 
-all: $(NAME) $(HEADER)
+all: $(NAME)
 
-$(NAME): $(OBJ) $(FOREIGN_TARGETS)
+$(NAME): $(OBJ)
+	@make -C libft
 	@$(CC) -I $(HEADER) $(OBJ) -Llibft -lft -o $(NAME)
 	@echo "[INFO] [$(NAME)] created"
-
-$(FOREIGN_TARGETS):
-	@make -C $(dir $@) $(notdir $@)
 
 clean:
 	@$(REMOVE) $(OBJ)
@@ -53,4 +49,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re $(FOREIGN_TARGETS)
+.PHONY: all clean fclean re
