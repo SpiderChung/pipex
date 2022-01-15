@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: schung <schung@student.42.fr>              +#+  +:+       +#+        */
+/*   By: schung <schung@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 20:47:31 by schung            #+#    #+#             */
-/*   Updated: 2021/12/01 18:32:11 by schung           ###   ########.fr       */
+/*   Updated: 2022/01/15 16:51:02 by schung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-# define BUFFER_SIZE 10000
+# define BUFFER_SIZE 1
 
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strequal(char const *s1, char const *s2);

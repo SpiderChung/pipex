@@ -6,7 +6,7 @@
 #    By: schung <schung@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/12 17:50:47 by schung            #+#    #+#              #
-#    Updated: 2022/01/10 20:12:45 by schung           ###   ########.fr        #
+#    Updated: 2022/01/15 13:51:56 by schung           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ all: $(NAME)
 $(NAME): $(patsubst %,$(OBJ_PATH)%,$(OBJ))
 	$(LIB) $?
 	@$(RANLIB)
-	@echo "[INFO] Library [$(NAME)] created"
+	@echo "$(GREEN)[INFO] Library [$(NAME)] created"
 
 clean:
 	@$(REMOVE) $(OBJ) $(OBJ_BONUS)
@@ -55,3 +55,9 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+#COLOURS
+RED = \033[1;31m
+GREEN = \033[1;32m
+YELLOW = \033[1;33m
+DEFAULT = \033[0m

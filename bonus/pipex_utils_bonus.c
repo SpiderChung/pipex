@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schung <schung@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:39:01 by schung            #+#    #+#             */
-/*   Updated: 2022/01/15 12:22:56 by schung           ###   ########.fr       */
+/*   Updated: 2022/01/15 16:52:55 by schung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "headers/pipex.h"
-#include "headers/libft.h"
+#include "../headers/pipex_bonus.h"
+#include "../headers/libft.h"
 
 void	pipex_errors(char *s, t_pipex *pipex)
 {

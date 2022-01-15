@@ -6,7 +6,7 @@
 /*   By: schung <schung@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/01 19:19:04 by schung            #+#    #+#             */
-/*   Updated: 2021/12/26 12:59:57 by schung           ###   ########.fr       */
+/*   Updated: 2022/01/15 17:36:01 by schung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,6 @@ static char	*ft_strdup_gnl(const char *s1)
 		return (NULL);
 	i = 0;
 	while (s1[i] && s1[i] != '\n')
-	{
-		a[i] = s1[i];
-		i++;
-	}
-	if (s1[i] == '\n')
 	{
 		a[i] = s1[i];
 		i++;
