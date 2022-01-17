@@ -42,13 +42,14 @@ typedef struct s_pipex
 	char	**cmd_args;
 	char	*cmd;
 	int		here_doc;
+	int		quantity;
 }	t_pipex;
 
 /*_____________pipex_bonus.c_____________*/
 char	*find_path(char **env);
 int		open_file(char *s, int rw);
-void	ft_exe_cmd(char **argv, char **env, t_pipex *pipex);
-void	tube(t_pipex *pipex);
+void	ft_exe_cmd(char *argv, char **env, t_pipex *pipex);
+void	tube(char *argv, char **env, t_pipex *pipex, int in);
 
 /*_____________pipex_utils_bonus.c_____________*/
 void	pipex_errors(char *s, t_pipex *pipex);

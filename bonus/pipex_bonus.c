@@ -33,42 +33,31 @@ int	open_file(char *s, int rw)
 	}
 	else
 	{
-		if (access(s, W_OK))
+		if (!(access(s, F_OK)))
 		{
-			pipex_error_message(s, errno);
-			exit(1);
+			if (access(s, W_OK))
+			{
+				pipex_error_message(s, errno);
+				exit(1);
+			}
 		}
-		return (open(s, O_CREAT | O_WRONLY | O_TRUNC, 777));
+		return (open(s, O_CREAT | O_WRONLY | O_TRUNC, 0777));
 	}
 }
 
-void	ft_exe_cmd(char **argv, char **env, t_pipex *pipex)
+void	ft_exe_cmd(char *argv, char **env, t_pipex *pipex)
 {
-	if (pipex->pid)
+	pipex->cmd_args = ft_split(argv, ' ');
+	pipex->cmd = get_cmd(pipex->cmd_paths, pipex->cmd_args[0]);
+	if (!pipex->cmd)
 	{
-		pipex->cmd_args = ft_split(argv[pipex->here_doc + 3], ' ');
-		pipex->cmd = get_cmd(pipex->cmd_paths, pipex->cmd_args[0]);
-		if (!pipex->cmd)
-		{
-			pipex_errors(ERR_CMD, pipex);
-			exit(1);
-		}
-		execve(pipex->cmd, pipex->cmd_args, env);
+		pipex_errors(ERR_CMD, pipex);
+		exit(1);
 	}
-	else
-	{
-		pipex->cmd_args = ft_split(argv[pipex->here_doc + 2], ' ');
-		pipex->cmd = get_cmd(pipex->cmd_paths, pipex->cmd_args[0]);
-		if (!pipex->cmd)
-		{
-			pipex_errors(ERR_CMD, pipex);
-			exit(1);
-		}
-		execve(pipex->cmd, pipex->cmd_args, env);
-	}
+	execve(pipex->cmd, pipex->cmd_args, env);
 }
 
-void	tube(t_pipex *pipex)
+void	tube(char *argv, char **env, t_pipex *pipex, int in)
 {
 	pipe(pipex->pipe_fd);
 	pipex->pid = fork();
@@ -82,6 +71,10 @@ void	tube(t_pipex *pipex)
 	{
 		close(pipex->pipe_fd[0]);
 		dup2(pipex->pipe_fd[1], STDOUT);
+		if (in == STDIN)
+			exit(1);
+		else
+			ft_exe_cmd(argv, env, pipex);
 	}
 }
 
@@ -90,15 +83,20 @@ int	main(int argc, char **argv, char **env)
 	t_pipex	pipex;
 
 	pipex.here_doc = 0;
+	pipex.quantity = pipex.here_doc + 3;
 	if (argc >= 5)
 	{
 		check_here_doc(argc, argv, &pipex);
 		dup2(pipex.in_fd, STDIN);
 		dup2(pipex.out_fd, STDOUT);
-		tube(&pipex);
 		pipex.paths = find_path(env);
 		pipex.cmd_paths = ft_split(pipex.paths, ':');
-		ft_exe_cmd(argv, env, &pipex);
+		tube(argv[2 + pipex.here_doc], env, &pipex, pipex.in_fd);
+		while (pipex.quantity < argc - 2)
+		{
+			tube(argv[pipex.quantity++], env, &pipex, 1);
+		}
+		ft_exe_cmd(argv[pipex.quantity], env, &pipex);
 		pipex_free(&pipex);
 	}
 	else
