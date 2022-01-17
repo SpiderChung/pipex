@@ -44,6 +44,9 @@ $(NAME): $(patsubst %,$(OBJ_PATH)%,$(OBJ))
 	@$(RANLIB)
 	@echo "$(GREEN)[INFO] Library [$(NAME)] created"
 
+$(OBJ_PATH):
+	mkdir temp_folder
+
 clean:
 	@$(REMOVE) $(OBJ)
 	@echo "[INFO] Removed libft objects"
@@ -54,7 +57,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re $(OBJ_PATH)
 
 #COLOURS
 RED = \033[1;31m
