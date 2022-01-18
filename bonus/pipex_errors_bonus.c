@@ -32,18 +32,19 @@ void	here_doc(char *argv)
 	file = open(".heredoc_tmp", O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (file < 0)
 		ft_putstr_fd(ERR_HEREDOC, STDERR);
-	while (1)
+	while (i != 0)
 	{
 		ft_putstr_fd("heredoc> ", STDOUT);
 		buf = get_next_line(0);
 		if (!buf)
 			exit(1);
 		i = ft_strncmp(argv, buf, ft_strlen(argv) + 1);
-		if (!i)
-			break ;
-		ft_putstr_fd(buf, file);
-		ft_putstr_fd("\n", file);
-		free(buf);
+		if (i != 0)
+		{
+			ft_putstr_fd(buf, file);
+			ft_putstr_fd("\n", file);
+			free(buf);
+		}
 	}
 	free(buf);
 	close(file);

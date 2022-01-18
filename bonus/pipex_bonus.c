@@ -57,7 +57,7 @@ void	ft_exe_cmd(char *argv, char **env, t_pipex *pipex)
 	execve(pipex->cmd, pipex->cmd_args, env);
 }
 
-void	tube(char *argv, char **env, t_pipex *pipex, int in)
+void	tube(char *argv, char **env, t_pipex *pipex)
 {
 	pipe(pipex->pipe_fd);
 	pipex->pid = fork();
@@ -71,10 +71,7 @@ void	tube(char *argv, char **env, t_pipex *pipex, int in)
 	{
 		close(pipex->pipe_fd[0]);
 		dup2(pipex->pipe_fd[1], STDOUT);
-		if (in == STDIN)
-			exit(1);
-		else
-			ft_exe_cmd(argv, env, pipex);
+		ft_exe_cmd(argv, env, pipex);
 	}
 }
 
@@ -91,10 +88,10 @@ int	main(int argc, char **argv, char **env)
 		dup2(pipex.out_fd, STDOUT);
 		pipex.paths = find_path(env);
 		pipex.cmd_paths = ft_split(pipex.paths, ':');
-		tube(argv[2 + pipex.here_doc], env, &pipex, pipex.in_fd);
+		tube(argv[2 + pipex.here_doc], env, &pipex);
 		while (pipex.quantity < argc - 2)
 		{
-			tube(argv[pipex.quantity++], env, &pipex, 1);
+			tube(argv[pipex.quantity++], env, &pipex);
 		}
 		ft_exe_cmd(argv[pipex.quantity], env, &pipex);
 		pipex_free(&pipex);
