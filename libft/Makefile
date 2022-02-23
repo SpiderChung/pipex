@@ -6,15 +6,13 @@
 #    By: schung <schung@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/12 17:50:47 by schung            #+#    #+#              #
-#    Updated: 2022/01/15 18:58:16 by schung           ###   ########.fr        #
+#    Updated: 2022/01/19 09:36:55 by schung           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 HEADERS = ../headers/
-
-TEMP_PATH = temp_folder/
 
 SRC = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c \
 	  ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_strlcpy.c  ft_strlcat.c \
@@ -32,32 +30,29 @@ CC = gcc $(CFLAGS)
 LIB = ar rc $(NAME)
 RANLIB = ranlib $(NAME)
 REMOVE = rm -f
-OBJ_PATH = temp_folder/
 
-$(patsubst %,$(OBJ_PATH)%,%.o): %.c
+
+%.o: %.c
 	$(CC) -I ${HEADERS} -c $< -o $@
 
 all: $(NAME)
 
-$(NAME): $(patsubst %,$(OBJ_PATH)%,$(OBJ))
+$(NAME): $(OBJ)
 	$(LIB) $?
 	@$(RANLIB)
 	@echo "$(GREEN)[INFO] Library [$(NAME)] created"
 
-$(OBJ_PATH):
-	mkdir temp_folder
-
 clean:
 	@$(REMOVE) $(OBJ)
-	@echo "[INFO] Removed libft objects"
+	@echo "$(YELLOW)[INFO] Removed libft objects"
 
 fclean: clean
-	@$(REMOVE) $(NAME) $(patsubst %,$(OBJ_PATH)%,$(OBJ))
-	@echo "[INFO] Libft and objects removed "
+	@$(REMOVE) $(NAME) $(OBJ)
+	@echo "$(YELLOW)[INFO] Libft and objects removed "
 
 re: fclean all
 
-.PHONY: all clean fclean re $(OBJ_PATH)
+.PHONY: all clean fclean re
 
 #COLOURS
 RED = \033[1;31m

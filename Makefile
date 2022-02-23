@@ -6,7 +6,7 @@
 #    By: schung <schung@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/01 15:57:27 by schung            #+#    #+#              #
-#    Updated: 2022/01/15 18:56:10 by schung           ###   ########.fr        #
+#    Updated: 2022/01/19 09:35:34 by schung           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,12 +52,12 @@ bonus: $(OBJ_B)
 clean:
 	@$(REMOVE) $(OBJ)
 	@$(REMOVE) $(OBJ_B)
-	@echo "[INFO] Removed pipex objects"
+	@echo "$(YELLOW)[INFO] Removed pipex objects"
 
 fclean: clean
 	@$(REMOVE) $(NAME) $(NAME_BONUS)
 	@make fclean -C libft
-	@echo "[INFO] Pipex and objects removed "
+	@echo "$(YELLOW)[INFO] Pipex and objects removed "
 
 re: fclean all
 

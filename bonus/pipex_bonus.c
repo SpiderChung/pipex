@@ -6,7 +6,7 @@
 /*   By: schung <schung@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 18:28:37 by schung            #+#    #+#             */
-/*   Updated: 2022/01/15 18:40:50 by schung           ###   ########.fr       */
+/*   Updated: 2022/01/19 09:58:12 by schung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,14 @@ int	main(int argc, char **argv, char **env)
 	t_pipex	pipex;
 
 	pipex.here_doc = 0;
-	pipex.quantity = pipex.here_doc + 3;
 	if (argc >= 5)
 	{
 		check_here_doc(argc, argv, &pipex);
+		pipex.quantity = pipex.here_doc + 2;
 		dup2(pipex.in_fd, STDIN);
 		dup2(pipex.out_fd, STDOUT);
 		pipex.paths = find_path(env);
 		pipex.cmd_paths = ft_split(pipex.paths, ':');
-		tube(argv[2 + pipex.here_doc], env, &pipex);
 		while (pipex.quantity < argc - 2)
 		{
 			tube(argv[pipex.quantity++], env, &pipex);

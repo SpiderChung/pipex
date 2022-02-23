@@ -6,7 +6,7 @@
 /*   By: schung <schung@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 18:32:32 by schung            #+#    #+#             */
-/*   Updated: 2022/01/15 18:37:52 by schung           ###   ########.fr       */
+/*   Updated: 2022/01/19 08:59:04 by schung           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	check_here_doc(int argc, char **argv, t_pipex *pipex)
 		here_doc(argv[2]);
 		pipex->in_fd = open_file(TEMP_FILE, FILE_READ);
 		pipex->here_doc = 1;
-		pipex->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
+		pipex->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND,
+				0777);
 	}
 	else
 	{
